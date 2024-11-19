@@ -44,3 +44,5 @@ erp_mpro/media/imagens/usuarios/
 .venv/
 *.sqlite3
 env/
+
+setup_server.py
