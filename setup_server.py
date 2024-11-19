@@ -19,9 +19,6 @@ if not GITHUB_TOKEN:
 
 GITHUB_API_URL = "https://api.github.com"
 
-if not GITHUB_TOKEN:
-    raise EnvironmentError("Variável de ambiente 'GITHUB_TOKEN' não está definida. Configure antes de continuar.")
-
 def run_command(command):
     """Executa comandos shell."""
     try:
@@ -154,7 +151,7 @@ def create_github_repo(repo_name, description=""):
         payload = {
             "name": repo_name,
             "description": description,
-            "private": False,
+            "private": True,  # Definindo como privado
         }
         response = requests.post(f"{GITHUB_API_URL}/user/repos", headers=headers, json=payload)
         if response.status_code == 201:
