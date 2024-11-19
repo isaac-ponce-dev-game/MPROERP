@@ -1,0 +1,12 @@
+https://github.com/thiagopena/geraldo/archive/master.zip
+https://github.com/thiagopena/PySIGNFe/archive/master.zip
+Django
+dj-database-url
+python-decouple
+pytz
+six
+cryptography
+pyOpenSSL
+signxml
+lxml
+reportlab
