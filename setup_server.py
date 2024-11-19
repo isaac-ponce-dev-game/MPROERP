@@ -13,7 +13,10 @@ NGINX_CONFIG_FILE = f"/etc/nginx/sites-available/{PROJECT_NAME}"
 CLOUDFLARE_TUNNEL_CONFIG = "/etc/cloudflared/config.yml"
 GITHUB_USERNAME = "isaac-ponce-dev-game"
 REPO_NAME = "MPROERP"
-GITHUB_TOKEN = os.getenv("GITHUB_TOKEN")  # Defina o token como variável de ambiente
+GITHUB_TOKEN = os.getenv("GITHUB_TOKEN")
+if not GITHUB_TOKEN:
+    raise EnvironmentError("A variável de ambiente 'GITHUB_TOKEN' não está configurada.")
+
 GITHUB_API_URL = "https://api.github.com"
 
 if not GITHUB_TOKEN:
