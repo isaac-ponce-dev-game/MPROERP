@@ -13,8 +13,11 @@ NGINX_CONFIG_FILE = f"/etc/nginx/sites-available/{PROJECT_NAME}"
 CLOUDFLARE_TUNNEL_CONFIG = "/etc/cloudflared/config.yml"
 GITHUB_USERNAME = "isaac-ponce-dev-game"
 REPO_NAME = "MPROERP"
-GITHUB_TOKEN = "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"
+GITHUB_TOKEN = os.getenv("GITHUB_TOKEN")  # Defina o token como variável de ambiente
 GITHUB_API_URL = "https://api.github.com"
+
+if not GITHUB_TOKEN:
+    raise EnvironmentError("Variável de ambiente 'GITHUB_TOKEN' não está definida. Configure antes de continuar.")
 
 def run_command(command):
     """Executa comandos shell."""
@@ -40,7 +43,7 @@ def remove_existing_configs():
             run_command(f"sudo rm -f {link_path}")
 
     # Gunicorn
-    run_command(f"sudo systemctl stop {GUNICORN_SERVICE}")
+    run_command(f"sudo systemctl stop {GUNICORN_SERVICE} || true")
     run_command(f"sudo systemctl disable {GUNICORN_SERVICE} || true")
     run_command(f"sudo rm -f /etc/systemd/system/{GUNICORN_SERVICE}")
 
@@ -48,8 +51,8 @@ def remove_existing_configs():
     run_command(f"sudo rm -f {CLOUDFLARE_TUNNEL_CONFIG}")
 
     # Reload Nginx e systemd
-    run_command("sudo systemctl stop nginx")
-    run_command("sudo systemctl stop cloudflared")
+    run_command("sudo systemctl stop nginx || true")
+    run_command("sudo systemctl stop cloudflared || true")
     run_command("sudo systemctl daemon-reload")
 
 def create_nginx_config():
